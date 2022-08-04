@@ -5,7 +5,7 @@
   <title>Scoped CSS Variables and JS</title>
 </head>
 <body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <h2>Update CSS Variables with <span class='word-highlight'>JS</span></h2>
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
@@ -25,11 +25,21 @@
     :root {
         --spacing: 10px;
         --blur: 10px;
-        --baackground-color: #ffc600;
+        --background-color: #ffc600;
+    }
+
+    .word-highlight {
+        color: var(--background-color); /* Anything with the class of word-highlight is going to be the color of the background-color variable (i.e. #ffc600) */
+    }
+
+    img {
+        padding: var(--spacing); /* Padding is now based on spacing variable (i.e. 10px) */
+        background: var(--background-color); /* Background is now based on background-color variable (i.e. #ffc600) */
+        filter: blur(var(--blur)); /* Blur filter is set and based on blur variable (i.e. 10px) */
     }
 
     /*
-      misc styles, nothing to do with CSS variables
+      misc styles below, nothing to do with CSS variables
     */
 
     body {
