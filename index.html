@@ -15,7 +15,7 @@
     <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
 
     <label for="background-color">Background Color</label>
-    <input id="background-color" type="color" name="base" value="#ffc600">
+    <input id="background-color" type="color" name="background-color" value="#ffc600">
   </div>
 
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
@@ -29,18 +29,14 @@
     }
 
     .word-highlight {
-        color: var(--background-color); /* Anything with the class of word-highlight is going to be the color of the background-color variable (i.e. #ffc600) */
+        color: var(--background-color);
     }
 
     img {
-        padding: var(--spacing); /* Padding is now based on spacing variable (i.e. 10px) */
-        background: var(--background-color); /* Background is now based on background-color variable (i.e. #ffc600) */
-        filter: blur(var(--blur)); /* Blur filter is set and based on blur variable (i.e. 10px) */
+        padding: var(--spacing);
+        filter: blur(var(--blur));
+        background: var(--background-color);
     }
-
-    /*
-      misc styles below, nothing to do with CSS variables
-    */
 
     body {
       text-align: center;
@@ -61,6 +57,21 @@
   </style>
 
   <script>
+
+    /* Select all three inputs (spacing, blur, background-color), so when they update, the CSS variables update */
+    const inputs = document.querySelectorAll('.controls input');
+
+    /* Select entire document (because CSS variables are defined at the root) and update variable values when update function is called */
+    function update() {
+        const suffix = this.dataset.sizing || '';
+        document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    /* Listen for a change event on each input */
+    /* Call update function when there is a change or mousemove on the sliders */
+    inputs.forEach(input => input.addEventListener('change', update));
+    inputs.forEach(input => input.addEventListener('mousemove', update));
+
   </script>
 
 </body>
